@@ -4,9 +4,51 @@
 	<meta charset="utf-8">
 	<script>
 		// TODO: create a handler
-    window.addEventListener("load", function(){
+		//1. Retrieve the selected value from the radio group
+		//document.getElementById("specific radio id")
+		//2. Use this value to determine the action URL, based on the selected search engine
+		//3. Set the action attribute of the form
+
+		window.addEventListener("load", function() {
+			let mySearchForm = document.getElementById("searchForm");
+			mySearchForm.addEventListener("submit", setSearchEngine);
+			// let mySearchButton = document.getElementById("submitButton");
+			// mySearchButton.addEventListener("click", setSearchEngine);
+		});
+
+		let actions = {
+			"google": "https://www.google.com/search",
+			"duckDuckGo": "https://duckduckgo.com/",
+			"bing": "https://www.bing.com/search",
+			"ask": "https://www.ask.com/web" 
+		};
+
+		//Now, you can get the action URL using action, bracket notation, and the value of the 
+		//selected radio button. Once you have the action URL, find the form element and set its action using setAttribute.
+		
+		function setSearchEngine(evt) {
+			//evt.preventDefault();
+			
+			// console.log("cheese sandwich");
+			// return 1;
+			let chosenEngine = document.querySelector('input[name="engine"]:checked');
+			// console.log(chosenEngine);
+			// return 1;
+			let chosenValue = chosenEngine.value;
+			// console.log(chosenValue);
+			// return 1;
+			let mySearchForm = document.getElementById("searchForm");
+			let actionUrl = actions[chosenValue];
+			// console.log(actionUrl);
+			// return 1;
+			mySearchForm.setAttribute("action", actionUrl);
+			
+			console.log("This function ran.");
+
+		}
+	
         // TODO: register the handler
-    });
+    //});
 	</script>
 </head>
 
@@ -14,6 +56,12 @@
 
 	<form id="searchForm">
     <!-- TODO: add form elements -->
+		<input type="text" name="q"/>
+		<label>Google<input type="radio" name="engine" value="google" checked="checked" /></label>
+		<label>DuckDuckGo<input type="radio" name="engine" value="duckDuckGo" /></label>
+		<label>Bing<input type="radio" name="engine" value="bing" /></label>
+		<label>Ask<input type="radio" name="engine" value="ask" /></label>
+		<button id="submitButton" type="submit">Go!</button>
 	</form>
 
 </body>
